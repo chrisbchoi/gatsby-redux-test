@@ -1,16 +1,28 @@
 import React from "react"
 import { Link } from "gatsby"
+import { connect } from "react-redux"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-const SecondPage = () => (
+import { toggleDarkMode } from "../state/stuff"
+
+const SecondPage = ({ isDarkMode }) => (
   <Layout>
-    <SEO title="Page two" />
+    <SEO title='Page two' />
     <h1>Hi from the second page</h1>
     <p>Welcome to page 2</p>
-    <Link to="/">Go back to the homepage</Link>
+
+    <span style={isDarkMode ? { background: "black", color: "white" } : null}>
+      Dark Mode
+      {isDarkMode ? "on" : "off"}
+    </span>
+
+    <Link to='/'>Go back to the homepage</Link>
   </Layout>
 )
 
-export default SecondPage
+export default connect(
+  state => ({ isDarkMode: state.app.isDarkMode }),
+  null
+)(SecondPage)
